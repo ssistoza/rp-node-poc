@@ -1,0 +1,31 @@
+name: Validate Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+jobs:
+  code-checks:
+    name: Gate Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Conventional Commit in Pull Requests
+        uses: ytanikin/PRConventionalCommits@1.2.0
+        with:
+          task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert"]'
+          add_label: 'false'
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/Iron
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: Build Process
+        run: npm run build
+      - name: Unit and Integration Tests
+        run: echo "Running Unit and Integration Tests Mock"

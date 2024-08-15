@@ -1,0 +1,89 @@
+name: Create PR Release and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - hotfix/**
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  pr:
+    name: Create Release PR or Ship Release
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.rp.outputs.release_created }}
+      prs_created: ${{ steps.rp.outputs.prs_created }}
+    timeout-minutes: 30
+    steps:
+      - name: Get Variables
+        run: |
+          echo "GITHUB_REF_NAME: ${{ github.ref_name }}"
+          echo "GITHUB_HEAD_REF: ${{ github.head_ref }}"
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - id: rp
+        name: Determine either pr or publish
+        uses: googleapis/release-please-action@v4
+        with:
+          release-type: node
+  deploy:
+    needs: pr
+    if: ${{ needs.pr.outputs.release_created != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ENVIRONMENT: 'dev'
+      LOWERCASE_REPO: ''
+    steps:
+      - name: Get Variables
+        env:
+          URL: ${{ vars.API_BASE_URL }}
+        run: |
+          echo $URL
+          echo ${{ vars.API_BASE_URL }}
+      - name: Get name for ECR repo #(used in image name)
+        run: echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
+      - name: Generate Docker Metadata
+        run: echo Docker Metadata
+      - name: Login to LIGHT AWS ECR
+        run: echo Logging in to AWS ECR
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/Iron
+          cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
+      - name: Install Node.js dependencies
+        run: yarn install --immutable
+      - name: Build Process
+        run: npm run build
+      - name: Push docker images
+        run: echo "Pushing docker images...."
+  package:
+    name: Publish to NPM
+    needs: pr
+    if: ${{ needs.pr.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/Iron
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: Build Process
+        run: npm run build
+      - name: Publish Package to NPM
+        run: "echo 'Publishing to NPM' Test"
