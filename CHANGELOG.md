@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/ssistoza/rp-node-poc/compare/v1.1.0...v1.2.0) (2024-08-15)
+
+
+### Features
+
+* allow hotfixing ([8654ab6](https://github.com/ssistoza/rp-node-poc/commit/8654ab69c1e866b43e043b578d117ff5bde5983c))
+
 ## [1.1.0](https://github.com/ssistoza/rp-node-poc/compare/v1.0.0...v1.1.0) (2024-08-15)
 
 
