@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/ssistoza/rp-node-poc/compare/v1.0.0...v1.1.0) (2024-08-15)
+
+
+### Features
+
+* try again ([acee548](https://github.com/ssistoza/rp-node-poc/commit/acee54864af322ac2dff992ca3dc0e71496ff003))
+
 ## 1.0.0 (2024-08-15)
 
 
