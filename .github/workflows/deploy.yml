@@ -30,6 +30,7 @@ jobs:
         uses: googleapis/release-please-action@v4
         with:
           release-type: node
+          target-branch: ${{ github.ref_name }}
   deploy:
     needs: pr
     if: ${{ needs.pr.outputs.release_created != 'true' }}
