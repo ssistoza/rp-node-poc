@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/ssistoza/rp-node-poc/compare/v1.2.0...v1.2.1) (2024-08-16)
+
+
+### Bug Fixes
+
+* pr workflow in 1.2 ([4901864](https://github.com/ssistoza/rp-node-poc/commit/4901864e562752774f34428198d5d7191a4232d1))
+
 ## [1.2.0](https://github.com/ssistoza/rp-node-poc/compare/v1.1.0...v1.2.0) (2024-08-15)
 
 
