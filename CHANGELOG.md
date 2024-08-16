@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/ssistoza/rp-node-poc/compare/v1.2.0...v1.3.0) (2024-08-16)
+
+
+### Features
+
+* update pr wrkflow ([57a9134](https://github.com/ssistoza/rp-node-poc/commit/57a9134dd0102635eb801b6f21a5736671eee012))
+
 ## [1.2.0](https://github.com/ssistoza/rp-node-poc/compare/v1.1.0...v1.2.0) (2024-08-15)
 
 
