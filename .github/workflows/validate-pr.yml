@@ -17,15 +17,17 @@ jobs:
           add_label: 'false'
       - name: Checkout Repo
         uses: actions/checkout@v3
+      - name: Enable Corepack
+        run: corepack enable
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: lts/Iron
-          cache: 'npm'
-          cache-dependency-path: 'package-lock.json'
+          cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
       - name: Install Node.js dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Build Process
-        run: npm run build
+        run: yarn build
       - name: Unit and Integration Tests
         run: echo "Running Unit and Integration Tests Mock"
