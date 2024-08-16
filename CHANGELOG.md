@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/ssistoza/rp-node-poc/compare/v1.2.1...v1.2.2) (2024-08-16)
+
+
+### Bug Fixes
+
+* create content ([adf6dcb](https://github.com/ssistoza/rp-node-poc/commit/adf6dcb98061cb5217911ad96da65b3253a6000e))
+
 ## [1.2.1](https://github.com/ssistoza/rp-node-poc/compare/v1.2.0...v1.2.1) (2024-08-16)
 
 
