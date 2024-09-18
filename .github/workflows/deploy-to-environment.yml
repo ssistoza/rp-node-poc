@@ -52,7 +52,7 @@ jobs:
     steps:
       - name: Get variables
         run: |
-          echo "TEST == ${{ env.ENV_GROUP }}"
+          echo "TEST == ${{ env.ENV_GROUP }} == ${{ needs.map.outputs.ENVIRONMENT_VARIABLES }}"
           echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
       - name: Generate Docker Metadata
         run: echo Docker Metadata
