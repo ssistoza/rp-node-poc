@@ -23,7 +23,7 @@ jobs:
     outputs:
       ENVIRONMENT_VARIABLES: ${{ steps.selection.outputs.environment }}
     steps:
-     - name: GTM
+      - name: GTM
        run: echo "GTM"
       - id: selection
         name: Choose environment variables group
