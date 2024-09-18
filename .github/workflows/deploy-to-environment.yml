@@ -22,9 +22,13 @@ jobs:
     name: Get env vars for ${{ inputs.env }} environment
     outputs:
       ENVIRONMENT_VARIABLES: ${{ steps.selection.outputs.environment }}
+      TEST: ${{ steps.gtm.outputs.test }}
     steps:
-      - name: GTM
-        run: echo "GTM"
+      - id: gtm
+        name: GTM
+        run: |
+          echo "GTM"
+          echo "TEST=BRUH" >> $GITHUB_OUTPUT
       - id: selection
         name: Choose environment variables group
         run: >-
