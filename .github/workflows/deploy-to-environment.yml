@@ -35,6 +35,7 @@ jobs:
           else
             echo "ENVIRONMENT_VARIABLES=dev-dev" >> $GITHUB_OUTPUT
           fi
+          echo "DONE..."
   deploy:
     name: Deploy ${{ inputs.tag_version }} to ${{ inputs.env }}
     needs: map
