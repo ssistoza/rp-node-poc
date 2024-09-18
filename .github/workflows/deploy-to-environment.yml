@@ -52,8 +52,8 @@ jobs:
     steps:
       - name: Get variables
         run: |
+          echo "TEST == ${{ env.ENV_GROUP }}"
           echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
-          echo "${{ env.ENV_GROUP }}"
       - name: Generate Docker Metadata
         run: echo Docker Metadata
       - name: Login to LIGHT AWS ECR
