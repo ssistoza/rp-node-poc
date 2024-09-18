@@ -15,13 +15,12 @@ on:
       tag_version:
         description: 'Tag'
         required: true
-
 jobs:
   map:
     runs-on: ubuntu-latest
     name: Get env vars for ${{ inputs.env }} environment
     outputs:
-      ENVIRONMENT_GROUP: ${{ steps.selection.outputs.environment }}
+      ENVIRONMENT_GROUP: ${{ steps.selection.outputs.ENVIRONMENT_GROUP }}
       TEST: ${{ steps.gtm.outputs.test }}
     steps:
       - id: gtm
