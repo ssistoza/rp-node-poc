@@ -69,5 +69,5 @@ jobs:
       - name: Push docker images
         run: |
           echo Pushing docker images....
-          echo Environment: ${{ env.environment }}
+          echo Environment: ${{ env.url }}
           echo Tag: ${{ inputs.tag_version }}
