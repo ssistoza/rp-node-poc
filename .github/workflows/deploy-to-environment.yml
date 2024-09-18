@@ -45,7 +45,7 @@ jobs:
       - name: Get variables
         run: |
           echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
-        - name: Generate Docker Metadata
+      - name: Generate Docker Metadata
         run: echo Docker Metadata
       - name: Login to LIGHT AWS ECR
         run: echo Logging in to AWS ECR
