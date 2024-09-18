@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Get env vars for ${{ inputs.env }} environment
     outputs:
-      ENVIRONMENT_GROUP: ${{ steps.selection.outputs.ENVIRONMENT_GROUP }}
+      ENVIRONMENT_CLUSTER: ${{ steps.selection.outputs.ENVIRONMENT_CLUSTER }}
       TEST: ${{ steps.gtm.outputs.test }}
     steps:
       - id: gtm
@@ -33,31 +33,28 @@ jobs:
         run: >-
           if [ "${{ inputs.env }}" == 'qa' ]; then
             echo "qa"
-            echo "ENVIRONMENT_GROUP=prd-qa" >> $GITHUB_OUTPUT
+            echo "ENVIRONMENT_CLUSTER=prd-qa" >> $GITHUB_OUTPUT
           elif  [ "${{ inputs.env }}" == 'staging' ]; then
             echo "staging"
-            echo "ENVIRONMENT_GROUP=prd-staging" >> $GITHUB_OUTPUT
+            echo "ENVIRONMENT_CLUSTER=prd-staging" >> $GITHUB_OUTPUT
           elif  [ "${{ inputs.env }}" == 'production' ]; then
             echo "production"
-            echo "ENVIRONMENT_GROUP=prd-prd" >> $GITHUB_OUTPUT
+            echo "ENVIRONMENT_CLUSTER=prd-prd" >> $GITHUB_OUTPUT
           else
             echo "else"
-            echo "ENVIRONMENT_GROUP=dev-dev" >> $GITHUB_OUTPUT
+            echo "ENVIRONMENT_CLUSTER=dev-dev" >> $GITHUB_OUTPUT
           fi
   deploy:
     name: Deploy ${{ inputs.tag_version }} to ${{ inputs.env }}
     needs: map
     runs-on: ubuntu-latest
-    environment: ${{ needs.map.outputs.ENVIRONMENT_GROUP }}
+    environment: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }}
     env:
       LOWERCASE_REPO: ''
-      ENV_GROUP: ${{ needs.map.outputs.ENVIRONMENT_GROUP }}
     steps:
       - name: Get variables
         run: |
-          echo "TEST == ${{ env.ENV_GROUP }} == ${{ needs.map.outputs.ENVIRONMENT_GROUP }}"
           echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
-          echo '${{ toJSON(needs.map.outputs) }}'
       - name: Generate Docker Metadata
         run: echo Docker Metadata
       - name: Login to LIGHT AWS ECR
@@ -82,4 +79,5 @@ jobs:
         run: |
           echo Pushing docker images....
           echo Environment: ${{ vars.url }} or ${{ vars.URL }}
+          echo Environment Cluster: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }} 
           echo Tag: ${{ inputs.tag_version }}
