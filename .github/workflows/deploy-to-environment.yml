@@ -26,11 +26,11 @@ jobs:
       - id: selection
         name: Choose environment variables group
         run: >-
-          if [ ${{ inputs.env }} = 'qa' ]; then
+          if [ "${{ inputs.env }}" == 'qa' ]; then
             echo "ENVIRONMENT_VARIABLES=prd-qa" >> $GITHUB_OUTPUT
-          elif  [ ${{ inputs.env }} = 'staging' ]; then
+          elif  [ "${{ inputs.env }}" == 'staging' ]; then
             echo "ENVIRONMENT_VARIABLES=prd-staging" >> $GITHUB_OUTPUT
-          elif  [ ${{ inputs.env }} = 'production' ]; then
+          elif  [ "${{ inputs.env }}" == 'production' ]; then
             echo "ENVIRONMENT_VARIABLES=prd-prd" >> $GITHUB_OUTPUT
           else
             echo "ENVIRONMENT_VARIABLES=dev-dev" >> $GITHUB_OUTPUT
