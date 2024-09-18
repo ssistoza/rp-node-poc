@@ -1,4 +1,4 @@
-name: Create PR Release and Deploy
+name: Deploy Snapshot
 
 on:
   push:
