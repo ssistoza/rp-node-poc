@@ -55,26 +55,13 @@ jobs:
       ENVIRONMENT: ${{ inputs.env }}
       LOWERCASE_REPO: ''
     steps:
-      - name: Get variables
-        run: |
-          echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
-      - name: Generate Docker Metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        env:
-          DOCKER_METADATA_PR_HEAD_SHA: true
-        with:
-          # list of Docker images to use as base name for tags
-          images: |
-            12345678/${{ env.LOWERCASE_REPO }}
-          tags: |
-            type=sha,prefix=${{ env.ENVIRONMENT }}-sha-,format=short
-      - name: Login to LIGHT AWS ECR
-        run: echo Logging in to AWS ECR
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.tag_version }}
           fetch-depth: 0
+      - name: Get variables
+        run: |
+          echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
       - name: Enable Corepack
         run: corepack enable
       - name: Setup Node
@@ -87,6 +74,21 @@ jobs:
         run: yarn install --immutable
       - name: Build Process
         run: yarn build
+      - name: Generate Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        env:
+          DOCKER_METADATA_PR_HEAD_SHA: true
+        with:
+          context: git
+          # list of Docker images to use as base name for tags
+          images: |
+            12345678/${{ env.LOWERCASE_REPO }}
+          tags: |
+            type=sha,prefix=${{ env.ENVIRONMENT }}-sha-,format=short
+            type=semvar,pattern={version}
+      - name: Login to LIGHT AWS ECR
+        run: echo Logging in to AWS ECR
       - name: Push docker images
         run: |
           echo Pushing docker images....${{ env.LOWERCASE_REPO }}/${{ env.ENVIRONMENT }}:${{ inputs.TAG_VERSION }}
