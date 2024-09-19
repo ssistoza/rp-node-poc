@@ -85,6 +85,7 @@ jobs:
           images: |
             12345678/${{ env.LOWERCASE_REPO }}
           tags: |
+            type=raw,value=${{ env.ENVIRONMENT }}
             type=raw,value=${{ env.ENVIRONMENT }}-{{tag}}
       - name: Login to LIGHT AWS ECR
         run: echo Logging in to AWS ECR
