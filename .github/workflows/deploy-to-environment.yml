@@ -14,6 +14,7 @@ on:
           - production
       tag_version:
         description: 'Tag'
+        default: 'v#.#.#'
         required: true
 jobs:
   map:
