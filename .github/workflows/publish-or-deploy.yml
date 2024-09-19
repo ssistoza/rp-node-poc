@@ -32,11 +32,10 @@ jobs:
           release-type: node
           target-branch: ${{ github.ref_name }}
   deploy:
-    runs-on: ubuntu-latest
     needs: pr
     if: ${{ needs.pr.outputs.release_created != 'true' }}
     timeout-minutes: 30
-    uses: ssistoza/rp-node-poc/.github/workflows/deploy-to-environment.yml@main
+    uses: ./.github/workflows/deploy-to-environment.yml
   package:
     name: Publish to NPM
     needs: pr

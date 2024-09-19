@@ -1,21 +1,21 @@
 name: Deploy To Environment
 
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #     env:
-  #       description: 'Environment'
-  #       required: true
-  #       default: 'qa'
-  #       type: choice
-  #       options:
-  #         - qa
-  #         - staging
-  #         - production
-  #     tag_version:
-  #       description: 'Tag'
-  #       default: 'v#.#.#'
-  #       required: true
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment'
+        required: true
+        default: 'qa'
+        type: choice
+        options:
+          - qa
+          - staging
+          - production
+      tag_version:
+        description: 'Tag'
+        default: 'v#.#.#'
+        required: true
   workflow_call:
     inputs:
       env:
@@ -59,9 +59,9 @@ jobs:
             echo "ENVIRONMENT_CLUSTER=dev-dev" >> $GITHUB_OUTPUT
           fi
   deploy:
+    runs-on: ubuntu-latest
     name: Deploy ${{ inputs.tag_version }} to ${{ inputs.env }}
     needs: map
-    runs-on: ubuntu-latest
     environment: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }}
     env:
       TAG_VERSION: ${{ inputs.tag_version }}
