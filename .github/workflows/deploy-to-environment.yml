@@ -69,7 +69,6 @@ jobs:
             12345678/${{ env.LOWERCASE_REPO }}
           tags: |
             type=sha,prefix=${{ env.ENVIRONMENT }}-sha-,format=short
-            type=semvar,pattern={{version}}
       - name: Login to LIGHT AWS ECR
         run: echo Logging in to AWS ECR
       - uses: actions/checkout@v4
