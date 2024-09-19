@@ -51,6 +51,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }}
     env:
+      TAG_VERSION: ${{ inputs.tag_version }}
+      ENVIRONMENT: ${{ inputs.env }}
       LOWERCASE_REPO: ''
     steps:
       - name: Get variables
@@ -90,11 +92,11 @@ jobs:
         run: yarn build
       - name: Push docker images
         run: |
-          echo Pushing docker images....${{ env.LOWERCASE_REPO }}/${{ inputs.env }}:${{ inputs.tag_version }}
+          echo Pushing docker images....${{ env.LOWERCASE_REPO }}/${{ env.ENVIRONMENT }}:${{ inputs.TAG_VERSION }}
           echo Environment: ${{ vars.url }} or ${{ vars.URL }}
           echo Environment Cluster: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }} 
-          echo Tag: ${{ inputs.tag_version }}
+          echo Tag: ${{ inputs.TAG_VERSION }}
           echo "# Deployment" >> $GITHUB_STEP_SUMMARY
-          echo "<b>Image:</b> ${{ env.LOWERCASE_REPO }}/${{ inputs.env }}:${{ inputs.tag_version }}" >> $GITHUB_STEP_SUMMARY
-          echo "<b>Tag:</b> ${{ inputs.tag_version }}" >> $GITHUB_STEP_SUMMARY
-          echo "<b>Environment:</b> ${{ inputs.env }}" >> $GITHUB_STEP_SUMMARY
+          echo "<b>Image:</b> ${{ env.LOWERCASE_REPO }}/${{ env.ENVIRONMENT }}:${{ inputs.TAG_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "<b>Tag:</b> ${{ inputs.TAG_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "<b>Environment:</b> ${{ env.ENVIRONMENT }}" >> $GITHUB_STEP_SUMMARY
