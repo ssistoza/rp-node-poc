@@ -36,7 +36,7 @@ jobs:
     needs: pr
     if: ${{ needs.pr.outputs.release_created != 'true' }}
     timeout-minutes: 30
-    uses: ssistoza/rp-node-poc/github/workflows/deploy-to-environment.yml
+    uses: ./.github/workflows/deploy-to-environment.yml
     with:
       env: dev
       tag_version: main
