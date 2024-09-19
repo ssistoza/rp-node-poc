@@ -83,6 +83,6 @@ jobs:
           echo Environment Cluster: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }} 
           echo Tag: ${{ inputs.tag_version }}
           echo #Deployment >> $GITHUB_STEP_SUMMARY
+          echo <b>Image:</b> ${{ env.LOWERCASE_REPO }}/${{ inputs.environment }}:${{ inputs.tag_version }} >> $GITHUB_STEP_SUMMARY
           echo <b>Tag:</b> ${{ inputs.tag_version }} >> $GITHUB_STEP_SUMMARY
           echo <b>Environment:</b> ${{ inputs.environment }} >> $GITHUB_STEP_SUMMARY
-          echo <b>Environment Cluster:</b> ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }} >> $GITHUB_STEP_SUMMARY
