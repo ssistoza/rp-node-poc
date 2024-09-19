@@ -57,7 +57,19 @@ jobs:
         run: |
           echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
       - name: Generate Docker Metadata
-        run: echo Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        env:
+          DOCKER_METADATA_PR_HEAD_SHA: true
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            12345678/${{ env.LOWERCASE_REPO }}
+          tags: |
+            type=sha,prefix=${{ env.ENVIRONMENT }}-sha-,format=short
+            type=ref,event=pr
+            type=ref,event=branch
+            type=ref,event=tag
       - name: Login to LIGHT AWS ECR
         run: echo Logging in to AWS ECR
       - uses: actions/checkout@v4
