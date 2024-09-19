@@ -21,12 +21,7 @@ on:
       env:
         description: 'Environment'
         required: true
-        default: 'qa'
-        type: options
-        options:
-          - qa
-          - staging
-          - production
+        default: 'dev'
       tag_version:
         description: 'Tag'
         default: 'v#.#.#'
