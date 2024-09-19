@@ -39,7 +39,7 @@ jobs:
     env:
       LOWERCASE_REPO: ''
     steps:
-      - uses: .github/workflows/deploy-to-environment.yml
+      - uses: ./.github/workflows/deploy-to-environment.yml
         with:
           env: dev
           tag_version: main
