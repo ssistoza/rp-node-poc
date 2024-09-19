@@ -34,7 +34,6 @@ jobs:
   deploy:
     needs: pr
     if: ${{ needs.pr.outputs.release_created != 'true' }}
-    timeout-minutes: 30
     uses: ./.github/workflows/deploy-to-environment.yml
   package:
     name: Publish to NPM
