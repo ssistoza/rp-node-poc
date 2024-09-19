@@ -15,6 +15,10 @@ on:
       tag_version:
         description: 'Tag'
         required: true
+      test:
+        description: 'check_env'
+        required: false
+        type: environment
 jobs:
   map:
     runs-on: ubuntu-latest
