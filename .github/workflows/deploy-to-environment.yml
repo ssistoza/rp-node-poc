@@ -77,7 +77,7 @@ jobs:
         run: yarn build
       - name: Push docker images
         run: |
-          echo Pushing docker images....
+          echo Pushing docker images....${{ env.LOWERCASE_REPO }}/${{ inputs.environment }}:${{ inputs.tag_version }}
           echo Environment: ${{ vars.url }} or ${{ vars.URL }}
           echo Environment Cluster: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }} 
           echo Tag: ${{ inputs.tag_version }}
