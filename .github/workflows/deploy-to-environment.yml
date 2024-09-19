@@ -20,10 +20,12 @@ on:
     inputs:
       env:
         description: 'Environment'
+        type: string
         required: true
         default: 'dev'
       tag_version:
         description: 'Tag'
+        type: string
         default: 'v#.#.#'
         required: true
 
