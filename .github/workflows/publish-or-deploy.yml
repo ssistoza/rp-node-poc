@@ -37,38 +37,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      ENVIRONMENT: 'dev'
       LOWERCASE_REPO: ''
     steps:
-      - name: Get Variables
-        env:
-          URL: ${{ vars.API_BASE_URL }}
-        run: |
-          echo $URL
-          echo ${{ vars.API_BASE_URL }}
-      - name: Get name for ECR repo #(used in image name)
-        run: echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
-      - name: Generate Docker Metadata
-        run: echo Docker Metadata
-      - name: Login to LIGHT AWS ECR
-        run: echo Logging in to AWS ECR
-      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/deploy-to-environment.yml
         with:
-          fetch-depth: 0
-      - name: Enable Corepack
-        run: corepack enable
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/Iron
-          cache: 'yarn'
-          cache-dependency-path: 'yarn.lock'
-      - name: Install Node.js dependencies
-        run: yarn install --immutable
-      - name: Build Process
-        run: yarn build
-      - name: Push docker images
-        run: echo "Pushing docker images...."
+          env: dev
+          tag_version: main
   package:
     name: Publish to NPM
     needs: pr

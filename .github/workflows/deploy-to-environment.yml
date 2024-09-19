@@ -16,6 +16,22 @@ on:
         description: 'Tag'
         default: 'v#.#.#'
         required: true
+  workflow_call:
+    inputs:
+      env:
+        description: 'Environment'
+        required: true
+        default: 'qa'
+        type: choice
+        options:
+          - qa
+          - staging
+          - production
+      tag_version:
+        description: 'Tag'
+        default: 'v#.#.#'
+        required: true
+
 jobs:
   map:
     runs-on: ubuntu-latest
@@ -85,6 +101,7 @@ jobs:
           images: |
             12345678/${{ env.LOWERCASE_REPO }}
           tags: |
+            type=sha,format=short
             type=raw,value=${{ env.ENVIRONMENT }}
             type=raw,value=${{ env.ENVIRONMENT }}-{{tag}}
       - name: Login to LIGHT AWS ECR
