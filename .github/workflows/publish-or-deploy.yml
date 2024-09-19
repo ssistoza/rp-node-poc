@@ -35,6 +35,9 @@ jobs:
     needs: pr
     if: ${{ needs.pr.outputs.release_created != 'true' }}
     uses: ./.github/workflows/deploy-to-environment.yml
+    with:
+      env: dev
+      tag_version: main
   package:
     name: Publish to NPM
     needs: pr
