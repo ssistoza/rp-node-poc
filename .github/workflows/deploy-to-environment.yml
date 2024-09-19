@@ -98,7 +98,7 @@ jobs:
           images: |
             12345678/${{ env.LOWERCASE_REPO }}
           tags: |
-            type=sha,format=short
+            type=sha,prefix=${{ env.ENVIRONMENT }}-sha-,format=short
             type=raw,value=${{ env.ENVIRONMENT }}
             type=raw,value=${{ env.ENVIRONMENT }}-{{tag}}
       - name: Login to LIGHT AWS ECR
