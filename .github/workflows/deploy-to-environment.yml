@@ -1,21 +1,21 @@
 name: Deploy To Environment
 
 on:
-  workflow_dispatch:
-    inputs:
-      env:
-        description: 'Environment'
-        required: true
-        default: 'qa'
-        type: choice
-        options:
-          - qa
-          - staging
-          - production
-      tag_version:
-        description: 'Tag'
-        default: 'v#.#.#'
-        required: true
+  # workflow_dispatch:
+  #   inputs:
+  #     env:
+  #       description: 'Environment'
+  #       required: true
+  #       default: 'qa'
+  #       type: choice
+  #       options:
+  #         - qa
+  #         - staging
+  #         - production
+  #     tag_version:
+  #       description: 'Tag'
+  #       default: 'v#.#.#'
+  #       required: true
   workflow_call:
     inputs:
       env:
