@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.4.0](https://github.com/ssistoza/rp-node-poc/compare/v1.3.0...v1.4.0) (2024-09-19)
+
+
+### Features
+
+* add content changes ([71e77f9](https://github.com/ssistoza/rp-node-poc/commit/71e77f990dd356384f592d67c18107f659ce2fd7))
+* add workflow_disptach ([cb3dc06](https://github.com/ssistoza/rp-node-poc/commit/cb3dc06a9d47b01960cdfdd4792a4e1e7cf235df))
+* env vars ([a7b8462](https://github.com/ssistoza/rp-node-poc/commit/a7b8462e9b2b4cf48432f011bc3ff7cc15bb59e5))
+* mimic docker image ([3b7d1ef](https://github.com/ssistoza/rp-node-poc/commit/3b7d1efae7616dbb02fa85e56e516d0820ad6860))
+* works ([e6a2d5d](https://github.com/ssistoza/rp-node-poc/commit/e6a2d5dbfcb7d5383cc7371d76f17547fd92135e))
+
+
+### Bug Fixes
+
+* fix:  ([ec949e7](https://github.com/ssistoza/rp-node-poc/commit/ec949e7b8a04e4b04b77404dd5fdbe1f02cd8573))
+* clearup ([b9740b0](https://github.com/ssistoza/rp-node-poc/commit/b9740b0e22236986ffef15d5e2878420f963b860))
+* it ([4d6697e](https://github.com/ssistoza/rp-node-poc/commit/4d6697eb2654fd60b7d412ca87245cfb44f9cfc1))
+* strp new line ([0bdccd2](https://github.com/ssistoza/rp-node-poc/commit/0bdccd288a8b2576b1cca9c94a249bac83f88c0b))
+* test ([c7d77ec](https://github.com/ssistoza/rp-node-poc/commit/c7d77ec76c5a35fa45029a39a08e1524886fcb70))
+* update yaml ([3f98cc5](https://github.com/ssistoza/rp-node-poc/commit/3f98cc574f3f9d9091f3609bfc3b93eb332e16d0))
+
 ## [1.3.0](https://github.com/ssistoza/rp-node-poc/compare/v1.2.0...v1.3.0) (2024-08-16)
 
 
