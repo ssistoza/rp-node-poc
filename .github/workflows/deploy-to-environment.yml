@@ -35,27 +35,17 @@ jobs:
     name: Get env vars for ${{ inputs.env }} environment
     outputs:
       ENVIRONMENT_CLUSTER: ${{ steps.selection.outputs.ENVIRONMENT_CLUSTER }}
-      TEST: ${{ steps.gtm.outputs.test }}
     steps:
-      - id: gtm
-        name: GTM
-        run: |
-          echo "GTM"
-          echo "TEST=BRUH" >> $GITHUB_OUTPUT
       - id: selection
         name: Choose environment variables group
         run: >-
           if [ "${{ inputs.env }}" == 'qa' ]; then
-            echo "qa"
             echo "ENVIRONMENT_CLUSTER=prd-qa" >> $GITHUB_OUTPUT
           elif  [ "${{ inputs.env }}" == 'staging' ]; then
-            echo "staging"
             echo "ENVIRONMENT_CLUSTER=prd-staging" >> $GITHUB_OUTPUT
           elif  [ "${{ inputs.env }}" == 'production' ]; then
-            echo "production"
             echo "ENVIRONMENT_CLUSTER=prd-prd" >> $GITHUB_OUTPUT
           else
-            echo "else"
             echo "ENVIRONMENT_CLUSTER=dev-dev" >> $GITHUB_OUTPUT
           fi
   deploy:

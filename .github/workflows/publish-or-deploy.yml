@@ -29,6 +29,7 @@ jobs:
         name: Determine either pr or publish
         uses: googleapis/release-please-action@v4
         with:
+          skip-github-release: true
           release-type: node
           target-branch: ${{ github.ref_name }}
   deploy:
