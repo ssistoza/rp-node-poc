@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/ssistoza/rp-node-poc/compare/v1.5.0...v1.6.0) (2024-09-27)
+
+
+### Features
+
+* test prerealse ([14bed1f](https://github.com/ssistoza/rp-node-poc/commit/14bed1fac908eaeb2bc75c3df1e62ca078c3c352))
+
+
+### Bug Fixes
+
+* revert ([b8cafb0](https://github.com/ssistoza/rp-node-poc/commit/b8cafb0e851fffd60ba6fe8a6de840e9856109fc))
+
 ## [1.5.0](https://github.com/ssistoza/rp-node-poc/compare/v1.4.0...v1.5.0) (2024-09-25)
 
 
