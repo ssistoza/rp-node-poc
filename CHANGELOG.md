@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/ssistoza/rp-node-poc/compare/v0.0.2...v0.0.3) (2024-09-27)
+
+
+### Miscellaneous Chores
+
+* release 0.0.3 ([#22](https://github.com/ssistoza/rp-node-poc/issues/22)) ([bfa7a19](https://github.com/ssistoza/rp-node-poc/commit/bfa7a1992e5cb95e7a27ffe9cbc3104440c46ab5))
+
 ## [0.0.2](https://github.com/ssistoza/rp-node-poc/compare/v0.0.1...v0.0.2) (2024-09-27)
 
 
