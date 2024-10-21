@@ -27,8 +27,7 @@ function App() {
       </div>
       <p className='read-the-docs'>
         Click on the Vite and React logos to learn more. The current time is{' '}
-        {new Date().toLocaleTimeString()}.
-        Hello, world!
+        {new Date().toLocaleTimeString()}. Hello, world! Test
       </p>
     </>
   );
