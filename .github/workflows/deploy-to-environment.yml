@@ -1,0 +1,105 @@
+name: Deploy To Environment
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment'
+        required: true
+        default: 'qa'
+        type: choice
+        options:
+          - qa
+          - staging
+          - production
+      tag_version:
+        description: 'Tag'
+        default: 'v#.#.#'
+        required: true
+  workflow_call:
+    inputs:
+      env:
+        description: 'Environment'
+        type: string
+        required: true
+        default: 'dev'
+      tag_version:
+        description: 'Tag'
+        type: string
+        default: 'v#.#.#'
+        required: true
+
+jobs:
+  map:
+    runs-on: ubuntu-latest
+    name: Get env vars for ${{ inputs.env }} environment
+    outputs:
+      ENVIRONMENT_CLUSTER: ${{ steps.selection.outputs.ENVIRONMENT_CLUSTER }}
+    steps:
+      - id: selection
+        name: Choose environment variables group
+        run: >-
+          if [ "${{ inputs.env }}" == 'qa' ]; then
+            echo "ENVIRONMENT_CLUSTER=prd-qa" >> $GITHUB_OUTPUT
+          elif  [ "${{ inputs.env }}" == 'staging' ]; then
+            echo "ENVIRONMENT_CLUSTER=prd-staging" >> $GITHUB_OUTPUT
+          elif  [ "${{ inputs.env }}" == 'production' ]; then
+            echo "ENVIRONMENT_CLUSTER=prd-prd" >> $GITHUB_OUTPUT
+          else
+            echo "ENVIRONMENT_CLUSTER=dev-dev" >> $GITHUB_OUTPUT
+          fi
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy ${{ inputs.tag_version }} to ${{ inputs.env }}
+    needs: map
+    environment: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }}
+    env:
+      TAG_VERSION: ${{ inputs.tag_version }}
+      ENVIRONMENT: ${{ inputs.env }}
+      LOWERCASE_REPO: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag_version }}
+          fetch-depth: 0
+      - name: Get variables
+        run: |
+          echo "LOWERCASE_REPO=$(echo ${{ github.event.repository.name }} | tr [A-Z] [a-z])" >> $GITHUB_ENV
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/Iron
+          cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
+      - name: Install Node.js dependencies
+        run: yarn install --immutable
+      - name: Build Process
+        run: yarn build
+      - name: Generate Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        env:
+          DOCKER_METADATA_PR_HEAD_SHA: true
+        with:
+          context: git
+          # list of Docker images to use as base name for tags
+          images: |
+            12345678/${{ env.LOWERCASE_REPO }}
+          tags: |
+            type=sha,prefix=${{ env.ENVIRONMENT }}-sha-,format=short
+            type=raw,value=${{ env.ENVIRONMENT }}
+            type=raw,value=${{ env.ENVIRONMENT }}-{{tag}}
+      - name: Login to LIGHT AWS ECR
+        run: echo Logging in to AWS ECR
+      - name: Push docker images
+        run: |
+          echo Pushing docker images....${{ env.LOWERCASE_REPO }}/${{ env.ENVIRONMENT }}:${{ inputs.TAG_VERSION }}
+          echo Environment: ${{ vars.url }} or ${{ vars.URL }}
+          echo Environment Cluster: ${{ needs.map.outputs.ENVIRONMENT_CLUSTER }} 
+          echo Tag: ${{ inputs.TAG_VERSION }}
+          echo "# Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "<b>Image:</b> ${{ env.LOWERCASE_REPO }}/${{ env.ENVIRONMENT }}:${{ inputs.TAG_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "<b>Tag:</b> ${{ inputs.TAG_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "<b>Environment:</b> ${{ env.ENVIRONMENT }}" >> $GITHUB_STEP_SUMMARY
