@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/ssistoza/rp-node-poc/compare/v0.1.0...v0.2.0) (2026-04-25)
+
+
+### Features
+
+* update git workflows ([#25](https://github.com/ssistoza/rp-node-poc/issues/25)) ([a4b8920](https://github.com/ssistoza/rp-node-poc/commit/a4b8920b58b4eacc06dc8d67f924c2c950c7bf0a))
+
 ## [0.1.0](https://github.com/ssistoza/rp-node-poc/compare/v0.0.3...v0.1.0) (2026-04-25)
 
 
