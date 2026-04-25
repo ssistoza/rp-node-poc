@@ -16,14 +16,14 @@ jobs:
           task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert"]'
           add_label: 'false'
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - name: Enable Corepack
         run: corepack enable
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: lts/Iron
           cache: 'yarn'
+          node-version-file: 'package.json'
           cache-dependency-path: 'yarn.lock'
       - name: Install Node.js dependencies
         run: yarn install --immutable
