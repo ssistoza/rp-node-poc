@@ -27,9 +27,8 @@ jobs:
         uses: actions/checkout@v5
       - id: rp
         name: Determine either pr or publish
-        uses: googleapis/release-please-action@v4
+        uses: googleapis/release-please-action@v5
         with:
-          release-type: node
           target-branch: ${{ github.ref_name }}
   deploy:
     needs: pr
